@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#220000">
+<meta name="description" content="A code-drawn Ferrari-inspired automotive artwork with animated headlights.">
+<title>Ferrari — Rosso</title>
+<style>
+  :root { color-scheme: dark; }
+  *, *::before, *::after {box-sizing: border-box}
+  html,body {margin:0; min-height:100%; width:100%;}
+  body {background:#160101; color:white; overflow:hidden; font-family:Arial,Helvetica,sans-serif;}
+  .scene {
+    position:relative; isolation:isolate; overflow:hidden;
+    width:100vw; height:100vh; height:100svh;
+    background:
+      radial-gradient(ellipse 64% 37% at 50% 47.3%,rgba(255,27,8,.94) 0%,rgba(203,9,4,.8) 21%,rgba(112,2,1,.59) 54%,transparent 91%),
+      radial-gradient(ellipse 84% 53% at 50% 35%,#850900 0%,#540302 51%,transparent 95%),
+      linear-gradient(180deg,#360201 0%,#610502 41%,#510301 56%,#240101 80%,#1b0101 100%);
+  }
+  .scene:before {content:"";position:absolute;inset:-1px;pointer-events:none;z-index:8;
+    background:radial-gradient(ellipse 89% 74% at 50% 46%,transparent 36%,rgba(8,0,0,.29) 78%,rgba(7,0,0,.48) 100%);}
+  .scene:after {content:"";position:absolute;inset:0;z-index:7;pointer-events:none;opacity:.16;
+    background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%22.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22 opacity=%22.12%22/%3E%3C/svg%3E');}
+  /* The entire composition uses a 941 × 1672 design coordinate system; scaling
+     one artboard preserves every element's position on desktop and mobile. */
+  .artboard {position:absolute; width:941px;height:1672px;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center;}
+  .horse {position:absolute;top:361px;left:414px;width:113px;height:123px;filter:drop-shadow(0 0 8px rgba(255,255,255,.1));}
+  .wordmark {position:absolute;left:0;top:497px;width:100%;text-align:center;margin:0;
+    color:#fff;font-family:Georgia,'Times New Roman',serif;font-weight:900;font-size:99px;line-height:1.14;letter-spacing:-7px;
+    text-shadow:0 1px 0 rgba(255,255,255,.25);user-select:none;}
+  .wordmark span {display:inline-block;position:relative;padding-right:8px;}
+  .wordmark span:before {content:"";position:absolute;left:5px;top:11px;width:79%;height:7px;border-radius:3px;background:#fff;}
+  .wordmark span:after {content:"";position:absolute;right:2px;top:11px;width:19px;height:7px;border-radius:5px;background:#fff;}
+  .ground-glow {position:absolute;left:-80px;right:-80px;top:894px;height:100px;
+    background:radial-gradient(ellipse 49% 38% at 50% 4%,rgba(255,52,28,.66),rgba(200,4,0,.17) 58%,transparent 100%);}
+  .horizon {position:absolute;left:0;right:0;top:917px;height:3px;background:linear-gradient(90deg,transparent,rgba(255,41,22,.88) 16%,#ff391c 50%,rgba(255,45,23,.85) 82%,transparent);box-shadow:0 0 13px 3px rgba(241,15,0,.36),0 -2px 27px rgba(255,28,0,.5);}
+  .car-wrap {position:absolute;left:23px;top:692px;width:895px;height:264px;z-index:3;}
+  .car {width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 12px 7px rgba(8,0,0,.64));}
+  .reflection {position:absolute;left:58px;top:923px;width:826px;height:75px;overflow:hidden;opacity:.28;filter:blur(5px);pointer-events:none;}
+  .reflection svg {width:826px;height:240px;transform:translateY(-225px) scaleY(-.27);transform-origin:center bottom;opacity:.78;}
+  .specs {position:absolute;top:1044px;left:0;width:100%;text-align:center;color:#9d8382;font-size:22px;font-weight:300;letter-spacing:4px;white-space:nowrap;line-height:1.45;}
+  .specs small {display:block;font-size:21px;letter-spacing:8px;padding-top:4px;color:#9e8080;}
+  .light-on {opacity:0;transition:opacity .16s linear;}
+  .lights-on .light-on {opacity:1;}
+  @media (prefers-reduced-motion:reduce) {.light-on{transition:none}}
+</style>
+</head>
+<body>
+<main class="scene" aria-label="Ferrari-inspired red hypercar, drawn with code, on a crimson background">
+  <div class="artboard" id="artboard">
+    <!-- Hand-drawn SVG mark, rather than a raster logo. -->
+    <svg class="horse" viewBox="0 0 110 130" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#fff" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M54 11 47 4 49 16 43 8 43 19 36 13 40 24 31 22 35 30 29 32 35 38 29 44 31 53 40 58 43 66 36 73 29 72 20 79 16 89 20 94 25 86 34 83 45 87 54 79 64 89 64 103 57 113 61 121 66 120 69 112 76 106 76 88 69 71 78 65 87 66 92 77 89 90 82 99 86 103 96 93 99 80 98 66 93 55 87 50 82 45 72 46 64 37 65 25 61 17Z"/>
+        <path d="M38 28 23 28 19 36 27 40 35 39 42 34Z"/><path d="M26 40 19 43 21 49 29 47 34 41Z"/>
+        <path d="M30 52 24 63 13 65 7 76 12 79 18 72 27 73 35 61Z"/>
+        <path d="M49 74 45 92 38 100 30 103 29 110 35 111 40 107 48 104 55 91 60 85Z"/>
+        <path d="M70 81 78 88 82 99 76 113 82 117 85 112 92 102 91 89 84 73Z"/>
+        <path d="M81 44Q96 45 99 32L103 31Q103 50 91 56L87 58Z"/>
+        <path d="M48 5 55 0 57 10 63 3 63 17 69 9 68 23 61 27 54 19Z"/>
+      </g>
+      <path d="m26 35 3-1" stroke="#370200" stroke-width="2" stroke-linecap="round"/>
+      <path d="M45 32 49 49M61 36 55 51 M50 59 70 66" stroke="#6e0704" stroke-width="1.2" opacity=".65" fill="none"/>
+    </svg>
+    <h1 class="wordmark"><span>Ferrari</span></h1>
+    <div class="ground-glow" aria-hidden="true"></div>
+    <div class="horizon" aria-hidden="true"></div>
+
+    <div class="car-wrap">
+      <!-- Everything below is inline vector geometry: chassis, glass, bodywork,
+           spokes, tires, ventilation, badges, highlights, headlights and shadows. -->
+      <svg class="car" viewBox="0 0 1200 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Detailed low red Ferrari-inspired sports car in side profile with white headlights that blink every two seconds">
+        <defs>
+          <linearGradient id="body" x1="0" y1="0" x2="0.18" y2="1"><stop stop-color="#ff746c"/><stop offset=".15" stop-color="#ff2b29"/><stop offset=".39" stop-color="#ef090e"/><stop offset=".61" stop-color="#c5000a"/><stop offset=".8" stop-color="#8e030a"/><stop offset="1" stop-color="#3e0003"/></linearGradient>
+          <linearGradient id="side" x1="0" y1="0" x2=".14" y2="1"><stop stop-color="#ff554e"/><stop offset=".19" stop-color="#f41417"/><stop offset=".48" stop-color="#c2040c"/><stop offset=".75" stop-color="#a2000a"/><stop offset="1" stop-color="#440103"/></linearGradient>
+          <linearGradient id="hood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff8683"/><stop offset=".25" stop-color="#fd2b2a"/><stop offset=".68" stop-color="#d5000d"/><stop offset="1" stop-color="#9a0007"/></linearGradient>
+          <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fd6260"/><stop offset=".3" stop-color="#ba0208"/><stop offset=".75" stop-color="#780105"/><stop offset="1" stop-color="#df0b0d"/></linearGradient>
+          <linearGradient id="glass" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#454c4f"/><stop offset=".18" stop-color="#171b20"/><stop offset=".52" stop-color="#04070b"/><stop offset=".8" stop-color="#1b2023"/><stop offset="1" stop-color="#030408"/></linearGradient>
+          <linearGradient id="windshield" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b5babc" stop-opacity=".72"/><stop offset=".31" stop-color="#636c71" stop-opacity=".25"/><stop offset=".58" stop-color="#e3e6e9" stop-opacity="0"/><stop offset="1" stop-color="#f5f8fa" stop-opacity=".13"/></linearGradient>
+          <linearGradient id="intake" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#040507"/><stop offset=".44" stop-color="#171518"/><stop offset="1" stop-color="#030204"/></linearGradient>
+          <linearGradient id="lip" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5b1518"/><stop offset=".3" stop-color="#151015"/><stop offset="1" stop-color="#020103"/></linearGradient>
+          <linearGradient id="tire" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#161719"/><stop offset=".2" stop-color="#030406"/><stop offset=".55" stop-color="#131517"/><stop offset="1" stop-color="#020305"/></linearGradient>
+          <radialGradient id="rim"><stop stop-color="#111518"/><stop offset=".38" stop-color="#373b3f"/><stop offset=".6" stop-color="#07080b"/><stop offset=".87" stop-color="#25272a"/><stop offset="1" stop-color="#050608"/></radialGradient>
+          <radialGradient id="brake"><stop stop-color="#292728"/><stop offset=".65" stop-color="#4d3533"/><stop offset=".92" stop-color="#151719"/><stop offset="1" stop-color="#080a0c"/></radialGradient>
+          <linearGradient id="spoke" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#131418"/><stop offset=".43" stop-color="#46484b"/><stop offset=".65" stop-color="#111216"/><stop offset="1" stop-color="#060709"/></linearGradient>
+          <linearGradient id="redCaliper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff3b2b"/><stop offset=".5" stop-color="#bb0010"/><stop offset="1" stop-color="#600007"/></linearGradient>
+          <radialGradient id="headGlow"><stop stop-color="#fff" stop-opacity=".96"/><stop offset=".16" stop-color="#fff" stop-opacity=".74"/><stop offset=".58" stop-color="#e7f4ff" stop-opacity=".21"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+          <filter id="blur"><feGaussianBlur stdDeviation="9"/></filter>
+          <filter id="beam"><feGaussianBlur stdDeviation="5"/></filter>
+          <pattern id="carbon" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#07080b"/><path d="M-2 3 3-2 M0 5 5 0 M3 7 8 2" fill="none" stroke="#44484d" stroke-opacity=".35" stroke-width=".55"/></pattern>
+          <g id="wheel">
+            <circle r="91" fill="#07080b" stroke="#360b0b" stroke-width="3"/>
+            <circle r="86" fill="url(#tire)" stroke="#26272b" stroke-width="4"/>
+            <circle r="76" fill="none" stroke="#111417" stroke-width="6"/>
+            <circle r="71" fill="url(#rim)" stroke="#5b5e60" stroke-width="2"/>
+            <circle r="59" fill="url(#brake)" stroke="#0b0c0d" stroke-width="3"/>
+            <g fill="none" stroke="#151719" stroke-width="2" opacity=".8">
+              <circle r="45"/><circle r="51"/><circle r="57"/>
+              <path d="M0-54V54 M-54 0H54 M-38-38 38 38 M38-38-38 38"/>
+            </g>
+            <g fill="#0a090b" stroke="#686469" stroke-width="1" opacity=".7">
+              <circle cx="0" cy="-48" r="2"/><circle cx="48" cy="0" r="2"/><circle cx="0" cy="48" r="2"/><circle cx="-48" cy="0" r="2"/>
+              <circle cx="34" cy="34" r="2"/><circle cx="-34" cy="34" r="2"/><circle cx="34" cy="-34" r="2"/><circle cx="-34" cy="-34" r="2"/>
+            </g>
+            <path d="M38-43Q54-32 55-10L51 7 40 12 29-2 30-25Z" fill="url(#redCaliper)" stroke="#500007" stroke-width="2"/>
+            <path d="M44-28 51-23 50 3 45 6" fill="none" stroke="#ff6555" stroke-width="1.7" opacity=".8"/>
+            <g fill="url(#spoke)" stroke="#07080a" stroke-width="2.4" stroke-linejoin="round">
+              <path d="M-9-9 -14-67 -5-70 0-25 5-69 15-65 9-9Z"/>
+              <path d="M-9-9 -14-67 -5-70 0-25 5-69 15-65 9-9Z" transform="rotate(72)"/>
+              <path d="M-9-9 -14-67 -5-70 0-25 5-69 15-65 9-9Z" transform="rotate(144)"/>
+              <path d="M-9-9 -14-67 -5-70 0-25 5-69 15-65 9-9Z" transform="rotate(216)"/>
+              <path d="M-9-9 -14-67 -5-70 0-25 5-69 15-65 9-9Z" transform="rotate(288)"/>
+            </g>
+            <g fill="none" stroke="#a9a4a3" stroke-opacity=".42" stroke-width="1">
+              <path d="M-9-13-12-64 M8-14 11-61"/>
+              <path d="M-9-13-12-64 M8-14 11-61" transform="rotate(72)"/>
+              <path d="M-9-13-12-64 M8-14 11-61" transform="rotate(144)"/>
+              <path d="M-9-13-12-64 M8-14 11-61" transform="rotate(216)"/>
+              <path d="M-9-13-12-64 M8-14 11-61" transform="rotate(288)"/>
+            </g>
+            <circle r="16" fill="#131414" stroke="#646261" stroke-width="2.4"/>
+            <circle r="12" fill="#ffd522" stroke="#ae7800" stroke-width="1.3"/>
+            <path d="m-2-7 4-1 1 3 4 2-3 5 3 5-4 1-3-4-3 3-4-2 4-5-1-4Z" fill="#141211"/>
+            <circle r="3.5" fill="#1a1712"/>
+            <circle r="80" fill="none" stroke="#69696a" stroke-width=".8" opacity=".4"/>
+          </g>
+        </defs>
+        <!-- Ground shadow and the thin aerodynamic carbon floor -->
+        <ellipse cx="610" cy="311" rx="565" ry="19" fill="#100000" opacity=".75" filter="url(#blur)"/>
+        <path d="M31 294 161 296 347 302 840 302 1129 296 1162 290 1165 306 39 309Z" fill="#070506"/>
+        <path d="M67 302Q576 312 1161 299" fill="none" stroke="#eb1819" stroke-width="2.3" opacity=".66"/>
+        <!-- Cabin upper structure: sloping windshield, short rear roof, rear deck -->
+        <path d="M336 175Q376 143 433 116 497 71 579 65L661 66Q717 68 766 86L846 114Q933 127 1019 145L1073 163 1075 193 322 196Z" fill="url(#roof)" stroke="#690005" stroke-width="2"/>
+        <path d="M357 172Q425 119 500 84 542 69 593 70L651 72Q698 74 755 92L809 121 690 162 429 183Z" fill="#080b0e" stroke="#270608" stroke-width="4"/>
+        <!-- Black windscreen/side glass: two precise panels and narrow pillar -->
+        <path d="M364 166Q430 116 503 85 538 72 577 73L570 160 417 182Z" fill="url(#glass)" stroke="#06070a" stroke-width="2"/>
+        <path d="M580 73Q625 72 661 77 719 86 765 109L803 126 707 157 582 160Z" fill="url(#glass)" stroke="#050608" stroke-width="2"/>
+        <path d="M363 167Q430 117 503 86 545 73 574 74L559 82Q469 95 382 168Z" fill="url(#windshield)" opacity=".62"/>
+        <path d="M579 75Q673 76 759 111L789 126 715 150Q680 119 625 98Z" fill="url(#windshield)" opacity=".36"/>
+        <path d="M575 74 576 159 583 164 585 75Z" fill="#bf1417" stroke="#f74d4b" stroke-width="1"/>
+        <path d="M363 167Q434 111 506 84 541 71 590 71 674 70 765 109L804 126" fill="none" stroke="#fc6964" stroke-width="3" opacity=".78"/>
+        <path d="M370 173Q461 163 570 159 672 163 705 159L810 129" fill="none" stroke="#3b0809" stroke-width="4"/>
+        <path d="M370 169Q474 158 570 157" fill="none" stroke="#d94e49" stroke-width="1.3" opacity=".65"/>
+        <!-- Rear air channel inside the C pillar -->
+        <path d="M763 105 858 128 907 152 858 166 759 164 814 136Z" fill="#af050a"/>
+        <path d="M790 127Q844 126 888 148L826 158 768 158Z" fill="#090c0d" stroke="#19090a" stroke-width="3"/>
+        <path d="M785 130Q837 128 872 142" fill="none" stroke="#e32624" stroke-width="2" opacity=".75"/>
+        <!-- Complete low-body silhouette. Front is LEFT. -->
+        <path d="M41 213Q81 199 132 182 177 164 231 154L335 151Q361 169 409 170L575 162Q660 163 711 151L800 148Q860 132 914 139L1045 147 1123 153Q1156 164 1168 192L1176 244 1163 282Q1142 304 1097 308L1006 310 896 306 353 309 177 306 73 301Q27 294 17 276L24 241Z" fill="url(#body)" stroke="#670002" stroke-width="2.4"/>
+        <!-- Nose: stacked sharklike upper sheet metal, horizontal headlight housing -->
+        <path d="M24 240Q122 189 231 160L335 154Q374 171 410 173L557 166Q428 180 316 188L208 188Q128 194 54 230Z" fill="url(#hood)"/>
+        <path d="M31 237Q132 191 228 168 284 154 332 158" fill="none" stroke="#ff8980" stroke-width="3" opacity=".78"/>
+        <path d="M38 239Q107 226 173 210L222 196 165 216 75 246Z" fill="#06090b" stroke="#450303" stroke-width="2"/>
+        <path d="M46 239 168 215 192 208 170 217 69 243Z" fill="#969c9f" opacity=".89"/>
+        <path d="M40 243Q91 231 167 218" fill="none" stroke="#fa3c31" stroke-width="1.2"/>
+        <path d="M18 253Q27 249 44 250L83 253 78 265 23 269Z" fill="#a00007"/>
+        <path d="M21 272 85 273 112 289 99 301 46 295 17 280Z" fill="#4b0307"/>
+        <path d="M34 275 84 278 94 287 38 287Z" fill="url(#intake)"/>
+        <path d="M25 288 88 289 116 301 36 302Z" fill="url(#lip)"/>
+        <!-- Larger red upper-body curves and paint reflections -->
+        <path d="M365 176Q501 173 623 169 686 175 744 167L828 150Q900 137 977 147L1129 157Q1081 163 1015 162L840 174 675 187 458 192 347 192Z" fill="#fb3030" opacity=".82"/>
+        <path d="M371 184Q487 172 629 172 726 185 828 159 933 141 1063 153" fill="none" stroke="#ff867b" stroke-width="4" opacity=".77"/>
+        <path d="M424 196Q638 184 786 179 926 169 1101 182L1159 199 1162 256 1112 278 875 280 629 284 420 279Z" fill="url(#side)"/>
+        <!-- Sculpted door/side: horizontal hard crease and triangulated lower intake -->
+        <path d="M379 199Q490 203 656 193L794 177Q824 171 846 179L773 212 655 229 530 243 401 243Z" fill="#e1171d" opacity=".85"/>
+        <path d="M385 201Q498 202 630 193L793 180" fill="none" stroke="#ff8b7e" stroke-width="3" opacity=".63"/>
+        <path d="M440 214Q564 220 722 204L799 183 748 221 596 241 466 244Z" fill="#b4050c" opacity=".83"/>
+        <path d="M487 242Q624 241 721 222L797 185 825 206 767 272 674 297 469 297Z" fill="#8a0209" opacity=".58"/>
+        <path d="M638 242Q699 226 760 202L806 177 859 184 796 221 764 258 735 274Z" fill="url(#intake)" stroke="#8d080e" stroke-width="2.4"/>
+        <path d="M659 244Q731 227 794 188 766 233 718 257Z" fill="#06080a" opacity=".88"/>
+        <path d="M794 182Q830 175 856 187L821 195 767 258" fill="none" stroke="#ff675a" stroke-width="2.2" opacity=".6"/>
+        <path d="M385 249Q495 259 627 244" fill="none" stroke="#ff483e" stroke-width="1.4" opacity=".47"/>
+        <path d="M451 301Q626 304 766 293L871 279 1058 288 1136 283 1123 306 794 310 451 310Z" fill="#370305" opacity=".68"/>
+        <path d="M450 302Q674 305 873 289L1128 296" fill="none" stroke="#f72725" stroke-width="2" opacity=".65"/>
+        <!-- Door shutlines, handle and B-pillar lower termination -->
+        <path d="M577 163 601 205 604 242 583 295" fill="none" stroke="#610409" stroke-width="2.4"/>
+        <path d="M583 163 605 204 608 239" fill="none" stroke="#ff6e61" stroke-width="1.3" opacity=".56"/>
+        <rect x="624" y="205" width="26" height="3" rx="1.5" fill="#570509" stroke="#eb5144" stroke-width=".9"/>
+        <!-- Rear shoulder and fender strip -->
+        <path d="M826 159Q895 140 974 149L1100 159 1143 171 1152 192Q1041 188 1001 198 961 188 912 188L807 185Z" fill="url(#hood)" opacity=".82"/>
+        <path d="M839 155Q934 140 1047 153L1130 164" fill="none" stroke="#ff9284" stroke-width="3" opacity=".7"/>
+        <!-- Rear diffuser and two tiny taillight elements -->
+        <path d="M1142 198 1173 204 1180 248 1160 286 1138 302 1121 303 1158 260Z" fill="#6d050a" stroke="#f42c22" stroke-width="1.8"/>
+        <path d="M1153 180 1173 182 1180 215 1172 245 1162 245Z" fill="#1b070b"/>
+        <path d="M1159 190Q1167 181 1171 195L1170 213Q1165 220 1159 210Z" fill="#f52327"/>
+        <path d="M1160 194 1166 190 1166 210 1161 210Z" fill="#fc6760" opacity=".9"/>
+        <path d="M1167 261Q1172 264 1171 277L1157 292 1132 298Z" fill="#100b0d"/>
+        <path d="M1150 273 1160 269 1161 281 1150 285Z" fill="#424142" stroke="#0b0b0b" stroke-width="2"/>
+        <!-- Mirrors: black support plus bright red aerodynamic shell -->
+        <path d="M425 167 429 145 457 135 475 141 457 158 450 174Z" fill="#12090a"/>
+        <path d="M410 146Q424 127 457 128L470 135 450 150 415 151Z" fill="#f21821" stroke="#760304" stroke-width="2"/>
+        <path d="M410 144Q438 126 464 134" fill="none" stroke="#ff9587" stroke-width="2"/>
+        <path d="M425 152 452 152 443 169 428 166Z" fill="#111113"/>
+        <!-- Front and rear wheel wells cut through paint -->
+        <path d="M182 309Q176 260 200 225 230 184 283 182 337 182 363 228 380 255 380 310Z" fill="#100407" stroke="#72050b" stroke-width="3"/>
+        <path d="M854 307Q847 252 878 215 909 183 963 183 1017 183 1046 224 1067 254 1064 309Z" fill="#100407" stroke="#650207" stroke-width="3"/>
+        <!-- The spokes, brake rotors, red calipers and central caps are all SVG. -->
+        <use href="#wheel" transform="translate(281 262) scale(.88)"/>
+        <use href="#wheel" transform="translate(961 262) scale(.88)"/>
+        <!-- Wheel arch highlights layered on top of the tires -->
+        <path d="M188 277Q193 216 238 191 291 170 334 201 373 231 368 286" fill="none" stroke="#fa2f2c" stroke-width="7"/>
+        <path d="M190 269Q205 208 255 191 323 175 357 230" fill="none" stroke="#ff6961" stroke-width="2.2" opacity=".76"/>
+        <path d="M855 277Q860 217 911 191 968 169 1015 201 1053 231 1053 287" fill="none" stroke="#d60b15" stroke-width="7"/>
+        <path d="M856 270Q868 207 921 191 991 175 1037 230" fill="none" stroke="#ff6558" stroke-width="2" opacity=".55"/>
+        <path d="M369 289 842 292 M1066 293 1140 284" stroke="#170508" stroke-width="2" opacity=".48"/>
+        <!-- Shield with tiny horse-like silhouette, directly drawn as SVG paths -->
+        <path d="M350 176 368 174 369 190Q363 204 359 207 353 201 349 190Z" fill="#f7d319" stroke="#4e2800" stroke-width="2"/>
+        <path d="M352 177 367 176" stroke="#158842" stroke-width="2"/>
+        <path d="m358 182 3-3 2 4-2 4 3 4-3 6-2-1 1-5-4-3 1-4-3-1Z" fill="#14110b"/>
+        <path d="M351 191 367 191" stroke="#b17802" stroke-width=".7" opacity=".5"/>
+        <!-- Dashboard-sized white DRL; no glow at OFF state. -->
+        <g class="light-on">
+          <ellipse cx="101" cy="229" rx="92" ry="35" fill="url(#headGlow)" filter="url(#beam)" opacity=".75"/>
+          <path d="M48 239 167 216" stroke="#fff" stroke-width="9" stroke-linecap="round" filter="url(#beam)" opacity=".9"/>
+          <path d="M48 239 167 216" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M42 237 102 226 138 217" fill="none" stroke="#f3faff" stroke-width="1.4" opacity=".9"/>
+        </g>
+      </svg>
+    </div>
+    <div class="reflection" aria-hidden="true"><svg viewBox="0 0 1200 350"><path d="M41 213Q81 199 132 182 177 164 231 154L335 151Q361 169 409 170L575 162Q660 163 711 151L800 148Q860 132 914 139L1045 147 1123 153Q1156 164 1168 192L1176 244 1163 282Q1142 304 1097 308L1006 310 896 306 353 309 177 306 73 301Q27 294 17 276L24 241Z" fill="#e62718"/></svg></div>
+    <div class="specs" aria-label="708 kilowatts, 985 horsepower, zero to sixty in 2.8 seconds, 350 kilometers per hour. Italy">708 kW | 985 PS | 2.8 s | 350 km/h <small>ITALY</small></div>
+  </div>
+</main>
+<script>
+  'use strict';
+  const scene = document.querySelector('.scene');
+  const artboard = document.getElementById('artboard');
+  function fitArtboard() {
+    const scale = Math.min(window.innerWidth / 941, window.innerHeight / 1672);
+    artboard.style.setProperty('--scale', String(scale));
+  }
+  fitArtboard();
+  window.addEventListener('resize', fitArtboard, {passive:true});
+  // No buttons or input: exactly two seconds OFF, then two seconds ON.
+  let lightsOn = false;
+  window.setInterval(() => {
+    lightsOn = !lightsOn;
+    scene.classList.toggle('lights-on', lightsOn);
+  }, 2000);
+</script>
+</body>
+</html>

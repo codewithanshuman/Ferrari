@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>Ferrari</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paint-main: #dd1f27;
+      --paint-dark: #800d16;
+      --paint-light: #ff6464;
+      --yellow: #f8db4b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      padding: 28px 48px;
+      position: relative;
+      z-index: 10;
+    }
+    .brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: .01em;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* ── CAR STAGE ── */
+    .stage-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 0 0 40px;
+    }
+    .stage-wrap::before {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 35%;
+      bottom: 18%;
+      left: 20%;
+      background: radial-gradient(ellipse, color-mix(in srgb, var(--paint-main) 28%, transparent), transparent 70%);
+      filter: blur(32px);
+      opacity: .7;
+      transition: background .4s;
+      pointer-events: none;
+    }
+    .car {
+      display: block;
+      width: min(92vw, 1100px);
+      overflow: visible;
+      filter: drop-shadow(0 24px 28px #000c);
+      transform: translateY(0);
+      transition: transform .35s ease;
+    }
+    .car:hover { transform: translateY(-6px); }
+
+    /* Car colour hooks */
+    .body-main { fill: url(#bodyGradient); }
+    #bodyGradient stop:nth-child(1) { stop-color: var(--paint-light); }
+    #bodyGradient stop:nth-child(2) { stop-color: var(--paint-main); }
+    #bodyGradient stop:nth-child(3) { stop-color: var(--paint-dark); }
+    #bodyGradient stop:nth-child(4) { stop-color: var(--paint-main); }
+
+    /* Wheel spin */
+    .wheel { transform-box: fill-box; transform-origin: center; }
+    .drive-mode .wheel { animation: wheelSpin .67s linear infinite; }
+    @keyframes wheelSpin { to { transform: rotate(360deg); } }
+
+    /* Headlights */
+    .beam { opacity: 0; transition: opacity .3s; }
+    .lights-on .beam { opacity: 1; }
+    .headlight { fill: #b9b7a2; transition: fill .3s, filter .3s; }
+    .lights-on .headlight { fill: #fffce0; filter: drop-shadow(0 0 14px #fff1a3); }
+
+    /* Road stripes */
+    .road-stripe { opacity: 0; }
+    .drive-mode .road-stripe { opacity: .8; animation: speedline .58s linear infinite; }
+    @keyframes speedline {
+      from { transform: translateX(400px); opacity: 0; }
+      40%  { opacity: .8; }
+      to   { transform: translateX(-500px); opacity: 0; }
+    }
+
+    /* ── CONTROLS ── */
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 28px 48px 40px;
+      position: relative;
+      z-index: 10;
+    }
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      color: #aaa49c;
+      padding: 0;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .toggle:hover { color: #fff; }
+    .toggle .pill {
+      width: 38px;
+      height: 20px;
+      border-radius: 20px;
+      background: #2a2a2a;
+      border: 1px solid #444;
+      display: flex;
+      padding: 3px;
+      align-items: center;
+      transition: background .3s, border-color .3s;
+      flex-shrink: 0;
+    }
+    .toggle .pill::after {
+      content: '';
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      background: #666;
+      transition: transform .3s, background .3s;
+    }
+    .toggle[aria-pressed="true"] { color: #fff; }
+    .toggle[aria-pressed="true"] .pill { background: var(--yellow); border-color: var(--yellow); }
+    .toggle[aria-pressed="true"] .pill::after { background: #111; transform: translateX(18px); }
+    .toggle:focus-visible { outline: 2px solid var(--yellow); outline-offset: 4px; border-radius: 4px; }
+
+    .divider { width: 1px; height: 28px; background: #2c2c2c; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="experience">
+
+    <header class="topbar">
+      <a class="brand" href="#">Ferrari</a>
+    </header>
+
+    <div class="stage-wrap">
+      <svg class="car" viewBox="0 0 1200 540" role="img" xmlns="http://www.w3.org/2000/svg"
+           aria-label="Ferrari-inspired sports car illustration">
+        <defs>
+          <linearGradient id="bodyGradient" x1="0" y1="0" x2="0.1" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0"/><stop offset=".34"/><stop offset=".78"/><stop offset="1"/>
+          </linearGradient>
+          <linearGradient id="glass" x1="0" y1="0" x2=".7" y2="1">
+            <stop stop-color="#a3b5b9" stop-opacity=".92"/>
+            <stop offset=".28" stop-color="#344149"/>
+            <stop offset=".65" stop-color="#101920"/>
+            <stop offset="1" stop-color="#05090d"/>
+          </linearGradient>
+          <linearGradient id="carbon" x1="0" y1="0" x2="0" y2="1">
+            <stop stop-color="#424347"/>
+            <stop offset=".55" stop-color="#131519"/>
+            <stop offset="1" stop-color="#050608"/>
+          </linearGradient>
+          <radialGradient id="metal">
+            <stop stop-color="#a9abb0"/>
+            <stop offset=".4" stop-color="#4d5057"/>
+            <stop offset=".82" stop-color="#1a1b20"/>
+            <stop offset="1" stop-color="#08090b"/>
+          </radialGradient>
+          <radialGradient id="tire">
+            <stop offset=".72" stop-color="#171819"/>
+            <stop offset=".84" stop-color="#09090a"/>
+            <stop offset=".95" stop-color="#2b2b2c"/>
+            <stop offset="1" stop-color="#08090a"/>
+          </radialGradient>
+          <linearGradient id="headbeam">
+            <stop stop-color="#fdf5a8" stop-opacity=".6"/>
+            <stop offset="1" stop-color="#fff7af" stop-opacity="0"/>
+          </linearGradient>
+          <mask id="arches">
+            <rect width="1200" height="540" fill="white"/>
+            <circle cx="300" cy="390" r="103" fill="black"/>
+            <circle cx="904" cy="390" r="103" fill="black"/>
+          </mask>
+          <g id="spoke">
+            <path d="M-9 -12 L-17 -61 L-4 -69 L10 -20 Z" fill="#747780" stroke="#b0b2b6" stroke-width="1.5"/>
+            <path d="M-4 -22 L-5 -62 L2 -58 L6 -23" fill="#d3d3d1" opacity=".5"/>
+          </g>
+        </defs>
+
+        <!-- Ground shadow + reflection -->
+        <ellipse cx="616" cy="486" rx="505" ry="24" fill="#000" opacity=".62"/>
+        <ellipse cx="615" cy="492" rx="370" ry="12" fill="var(--paint-main)" opacity=".13"/>
+
+        <!-- Road stripes (drive mode) -->
+        <g class="road-stripe" stroke="#b3aba0" stroke-width="2">
+          <path d="M760 490h250"/><path d="M1030 500h145"/><path d="M490 501h150"/>
+        </g>
+
+        <!-- Headlight beam -->
+        <path class="beam" d="M1103 286 L1198 240 L1198 375 L1107 330 Z" fill="url(#headbeam)"/>
+
+        <!-- Wheel wells -->
+        <g class="wheel-well">
+          <circle cx="300" cy="390" r="106" fill="#050505"/>
+          <circle cx="904" cy="390" r="106" fill="#050505"/>
+        </g>
+
+        <!-- Rear wheel -->
+        <g class="wheel" id="rearWheel">
+          <circle cx="300" cy="390" r="88" fill="url(#tire)" stroke="#08090b" stroke-width="3"/>
+          <circle cx="300" cy="390" r="71" fill="none" stroke="#37383b" stroke-width="3"/>
+          <circle cx="300" cy="390" r="65" fill="url(#metal)" stroke="#17181b" stroke-width="2"/>
+          <circle cx="300" cy="390" r="52" fill="#080a0c" stroke="#8b8d92" stroke-width="2"/>
+          <g transform="translate(300 390)">
+            <use href="#spoke"/><use href="#spoke" transform="rotate(72)"/>
+            <use href="#spoke" transform="rotate(144)"/><use href="#spoke" transform="rotate(216)"/>
+            <use href="#spoke" transform="rotate(288)"/>
+          </g>
+          <circle cx="300" cy="390" r="20" fill="#c5c5c2"/>
+          <circle cx="300" cy="390" r="13" fill="#151515" stroke="#e0dcd0" stroke-width="1.5"/>
+          <circle cx="300" cy="390" r="4" fill="#f5dc43"/>
+        </g>
+
+        <!-- Front wheel -->
+        <g class="wheel" id="frontWheel">
+          <circle cx="904" cy="390" r="88" fill="url(#tire)" stroke="#08090b" stroke-width="3"/>
+          <circle cx="904" cy="390" r="71" fill="none" stroke="#37383b" stroke-width="3"/>
+          <circle cx="904" cy="390" r="65" fill="url(#metal)" stroke="#17181b" stroke-width="2"/>
+          <circle cx="904" cy="390" r="52" fill="#080a0c" stroke="#8b8d92" stroke-width="2"/>
+          <g transform="translate(904 390)">
+            <use href="#spoke"/><use href="#spoke" transform="rotate(72)"/>
+            <use href="#spoke" transform="rotate(144)"/><use href="#spoke" transform="rotate(216)"/>
+            <use href="#spoke" transform="rotate(288)"/>
+          </g>
+          <circle cx="904" cy="390" r="20" fill="#c5c5c2"/>
+          <circle cx="904" cy="390" r="13" fill="#151515" stroke="#e0dcd0" stroke-width="1.5"/>
+          <circle cx="904" cy="390" r="4" fill="#f5dc43"/>
+        </g>
+
+        <!-- Body -->
+        <g mask="url(#arches)">
+          <path class="body-main" d="M73 332 Q82 313 120 310 L226 295 Q300 280 397 272 Q436 219 489 178 Q526 141 569 138 L713 138 Q758 142 794 185 L844 252 Q917 252 1000 268 L1096 287 Q1132 298 1146 323 L1147 390 Q1147 426 1097 434 L131 434 Q68 427 67 384 L68 349 Z" stroke="#590d12" stroke-width="2"/>
+          <path d="M70 364 Q270 340 460 342 L829 333 Q1000 327 1148 344 L1147 374 Q1130 387 1080 383 L83 390 Z" fill="var(--paint-dark)" opacity=".43"/>
+          <path d="M83 327 Q316 291 408 284 L839 277 Q999 282 1114 306" stroke="var(--paint-light)" stroke-opacity=".67" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M130 420 Q576 429 1096 423" stroke="#ff9a87" stroke-opacity=".29" stroke-width="5" fill="none"/>
+          <path d="M77 376 Q128 390 187 384 L400 384 Q561 386 703 384 L1105 382 Q1138 380 1146 372 L1147 407 Q1121 438 1070 438 L130 438 Q75 431 77 376" fill="#111014" opacity=".45"/>
+          <!-- Windshield -->
+          <path d="M403 275 Q434 208 510 160 Q538 141 568 140 L713 140 Q758 143 792 192 L839 267 Z" fill="#171b1d" stroke="#302d2b" stroke-width="5"/>
+          <path d="M417 266 Q468 204 519 166 Q541 149 568 149 L584 149 L553 266 Z" fill="url(#glass)" stroke="#43464a" stroke-width="3"/>
+          <path d="M595 149 L705 149 Q750 150 780 202 L820 264 L568 266 Z" fill="url(#glass)" stroke="#43464a" stroke-width="3"/>
+          <path d="M575 149 L565 269" stroke="#17191b" stroke-width="12"/>
+          <path d="M573 151 L565 265" stroke="#a0a09a" stroke-opacity=".32" stroke-width="2"/>
+          <path d="M627 150 L703 150 Q740 154 759 179 L790 220 Q720 177 627 150" fill="#d1dedc" opacity=".13"/>
+          <path d="M465 249 L520 174 L540 160 L504 223" fill="#f0f4eb" opacity=".17"/>
+          <!-- Body details -->
+          <path d="M814 265 L785 308 L781 402" stroke="#48070d" stroke-opacity=".56" fill="none" stroke-width="3"/>
+          <path d="M556 276 L553 348 Q560 358 581 357 L773 348" fill="none" stroke="#650b13" stroke-width="2.5" opacity=".65"/>
+          <path d="M584 277 L764 274" stroke="#ffd5c6" stroke-opacity=".2" stroke-width="2"/>
+          <path d="M653 284 l41 -2 l-4 7 l-38 2 Z" fill="#101114" stroke="#ffd6c8" stroke-opacity=".65" stroke-width="1"/>
+          <path d="M515 280 L545 287 L536 298 L495 294 Z" fill="#1b1b1d" stroke="#fdc6ac" stroke-opacity=".6" stroke-width="2"/>
+          <path d="M813 280 Q916 270 1012 289 L1089 304" fill="none" stroke="#590a10" stroke-width="2.3"/>
+          <path d="M850 304 Q970 301 1092 323" fill="none" stroke="#ffc0a6" stroke-opacity=".26" stroke-width="2"/>
+          <path d="M411 317 Q506 330 580 328 L761 319 Q734 344 660 356 L477 360 Q437 349 411 317Z" fill="var(--paint-dark)" opacity=".31"/>
+          <path d="M462 361 Q560 371 726 356 L743 365 Q614 390 480 385Z" fill="#1b171a" opacity=".6"/>
+          <path d="M1099 339 L1147 349 L1147 384 L1101 386 Z" fill="#141113"/>
+          <path d="M80 345 L116 328 L141 329 L129 350 L76 362 Z" fill="#240a0e"/>
+          <!-- Headlight housing -->
+          <path d="M1031 292 Q1078 294 1109 312 L1092 323 L1029 315 Q1012 308 1031 292Z" fill="#111519" stroke="#dba9a1" stroke-width="2"/>
+          <path class="headlight" d="M1043 296 Q1083 299 1104 312 L1088 317 L1031 307 Z"/>
+          <path d="M1124 334 L1144 347 L1144 358 L1108 352 Z" fill="#070708"/>
+          <path d="M1109 399 L1142 389 L1133 410 L1093 419 Z" fill="#060707"/>
+          <path d="M78 389 L129 404 L128 418 L84 411Z" fill="#070708"/>
+          <path d="M83 332 L119 321 L147 323 L125 330 L77 345 Z" fill="#ec3439"/>
+          <path d="M152 299 L194 293 L212 296 L169 303 Z" fill="#130e11" opacity=".82"/>
+          <path d="M99 363 L165 357" stroke="#e86457" stroke-opacity=".45" stroke-width="2"/>
+          <path d="M403 272 Q440 218 486 182" fill="none" stroke="#f8c1b7" stroke-opacity=".32" stroke-width="2"/>
+          <path d="M812 265 Q850 263 885 267" fill="none" stroke="#f7c3ab" stroke-opacity=".45" stroke-width="3"/>
+          <path d="M190 402 L226 402" stroke="#ffad9c" stroke-opacity=".52" stroke-width="2"/>
+          <path d="M488 398 L715 398" stroke="#ed8174" stroke-opacity=".4" stroke-width="1.5"/>
+          <!-- Crest -->
+          <path d="M850 295 l16 0 l-2 22 l-6 5 l-6 -5 Z" fill="#e9d43f" stroke="#111" stroke-width="1"/>
+          <path d="M855 303 l4 -3 l2 8 l-3 5 l-4 -4Z" fill="#171717"/>
+        </g>
+
+        <!-- Wheel arch lips -->
+        <path d="M197 392 A103 103 0 0 1 403 392" fill="none" stroke="#430c13" stroke-width="5"/>
+        <path d="M801 392 A103 103 0 0 1 1007 392" fill="none" stroke="#430c13" stroke-width="5"/>
+      </svg>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="toggle" id="lightsToggle" type="button" aria-pressed="false">
+        <span class="pill" aria-hidden="true"></span>
+        <span>Headlights</span>
+      </button>
+      <div class="divider" aria-hidden="true"></div>
+      <button class="toggle" id="motionToggle" type="button" aria-pressed="false">
+        <span class="pill" aria-hidden="true"></span>
+        <span>Wheel Motion</span>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    const experience = document.getElementById('experience');
+    const lightsToggle = document.getElementById('lightsToggle');
+    const motionToggle = document.getElementById('motionToggle');
+
+    lightsToggle.addEventListener('click', () => {
+      const on = lightsToggle.getAttribute('aria-pressed') !== 'true';
+      lightsToggle.setAttribute('aria-pressed', String(on));
+      experience.classList.toggle('lights-on', on);
+    });
+
+    motionToggle.addEventListener('click', () => {
+      const on = motionToggle.getAttribute('aria-pressed') !== 'true';
+      motionToggle.setAttribute('aria-pressed', String(on));
+      experience.classList.toggle('drive-mode', on);
+    });
+  </script>
+</body>
+</html>

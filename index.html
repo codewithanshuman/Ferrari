@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ferrari</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐎</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+
+  /* ── FULL BLACK BACKGROUND ── */
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    position: relative;
+  }
+
+  /* ── RED GLOW FROM BOTTOM ── */
+  body::before {
+    content: '';
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: radial-gradient(ellipse 80% 100% at 50% 100%, rgba(180,0,0,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── FERRARI LOGO ── */
+  .logo-wrap {
+    position: relative;
+    z-index: 10;
+    animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .logo-wrap img {
+    width: clamp(160px, 22vw, 280px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 30px rgba(200,0,0,0.3));
+  }
+
+  /* ── FERRARI WORDMARK ── */
+  .wordmark {
+    position: relative;
+    z-index: 10;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(52px, 9vw, 120px);
+    letter-spacing: 0.22em;
+    color: #1a1a1a;
+    background: linear-gradient(135deg, #fff 0%, #e0e0e0 40%, #fff 50%, #c8c8c8 60%, #fff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    line-height: 1;
+    margin-top: -10px;
+    user-select: none;
+    animation: fadeUp 1s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  /* ── RED RULE ── */
+  .red-rule {
+    position: relative;
+    z-index: 10;
+    width: clamp(200px, 36vw, 500px);
+    height: 2px;
+    background: #cc0000;
+    margin: 18px 0 36px;
+    animation: fadeUp 1s 0.25s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  /* ── BUTTON ROW ── */
+  .btn-row {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;
+    animation: fadeUp 1s 0.35s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  /* ── CAR BUTTON ── */
+  .car-btn {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.22s ease;
+  }
+  .car-btn:hover { transform: translateY(-5px); }
+  .car-btn:active { transform: translateY(-2px) scale(0.98); }
+
+  /* Car SVG glow */
+  .car-btn svg {
+    display: block;
+    filter:
+      drop-shadow(0 0 10px rgba(200,0,0,0.55))
+      drop-shadow(0 4px 20px rgba(0,0,0,0.7));
+    transition: filter 0.3s ease;
+  }
+  .car-btn:hover svg {
+    filter:
+      drop-shadow(0 0 18px rgba(220,0,0,0.85))
+      drop-shadow(0 0 36px rgba(255,60,0,0.35))
+      drop-shadow(0 6px 24px rgba(0,0,0,0.9));
+  }
+
+  /* Label over the car */
+  .car-btn .label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -58%);
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(20px, 3vw, 30px);
+    letter-spacing: 0.18em;
+    color: #fff;
+    text-shadow:
+      0 0 10px rgba(255,255,255,0.5),
+      0 2px 6px rgba(0,0,0,0.9);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-wrap, .wordmark, .red-rule, .btn-row { animation: none; }
+  }
+
+  @media (max-width: 600px) {
+    .btn-row { gap: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Ferrari Logo (user-provided) -->
+<div class="logo-wrap">
+  <img src="assets/logo.png;base64,${BASE64}" alt="Ferrari Prancing Horse">
+</div>
+
+<!-- Wordmark -->
+<div class="wordmark">Ferrari</div>
+
+<!-- Red rule -->
+<div class="red-rule"></div>
+
+<!-- Buttons -->
+<div class="btn-row">
+
+  <!-- V1 -->
+  <a href="v1/v1.html" class="car-btn" aria-label="Version 1">
+    <svg width="240" height="90" viewBox="0 0 240 90" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Red body gradient -->
+        <linearGradient id="bodyG" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#3a0000"/>
+          <stop offset="25%"  stop-color="#cc0000"/>
+          <stop offset="55%"  stop-color="#990000"/>
+          <stop offset="100%" stop-color="#1a0000"/>
+        </linearGradient>
+        <!-- Roof gradient -->
+        <linearGradient id="roofG" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#440000"/>
+          <stop offset="100%" stop-color="#bb0000"/>
+        </linearGradient>
+        <!-- Glass -->
+        <linearGradient id="glassG" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#aaddff" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#113355" stop-opacity="0.4"/>
+        </linearGradient>
+        <!-- Wheel -->
+        <radialGradient id="wheelG" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#333"/>
+          <stop offset="100%" stop-color="#0a0a0a"/>
+        </radialGradient>
+        <!-- Chrome -->
+        <linearGradient id="chromeG" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="transparent"/>
+          <stop offset="30%"  stop-color="#aaa"/>
+          <stop offset="50%"  stop-color="#fff"/>
+          <stop offset="70%"  stop-color="#aaa"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Ground shadow -->
+      <ellipse cx="120" cy="83" rx="108" ry="5" fill="#000" opacity="0.55"/>
+
+      <!-- BODY -->
+      <path d="M14 58 C14 58 24 46 44 41 C60 37 76 35 96 32 C110 29 124 27 136 28 C150 29 163 33 175 38 C187 43 197 49 203 55 C207 58 209 61 210 65 L210 70 C208 72 196 74 170 74 L28 74 C18 72 14 70 14 70 Z" fill="url(#bodyG)"/>
+
+      <!-- ROOF/CABIN -->
+      <path d="M76 42 C84 30 96 24 112 22 C128 20 143 24 153 32 C161 38 164 44 165 50 L76 50 Z" fill="url(#roofG)"/>
+
+      <!-- WINDSHIELD -->
+      <path d="M82 49 C87 34 99 26 114 24 C128 22 140 28 149 39 L149 49 Z" fill="url(#glassG)"/>
+
+      <!-- SIDE WINDOW HINT -->
+      <path d="M76 49 L77 38 C82 30 92 25 105 24 L80 49 Z" fill="url(#glassG)" opacity="0.6"/>
+
+      <!-- HOOD LINE -->
+      <path d="M165 50 C178 50 195 53 210 58" stroke="#bb0000" stroke-width="1.5" fill="none" opacity="0.8"/>
+
+      <!-- CHROME SILL STRIPE -->
+      <line x1="14" y1="56" x2="210" y2="56" stroke="url(#chromeG)" stroke-width="1.2"/>
+
+      <!-- REAR TAIL LIGHT -->
+      <rect x="12" y="52" width="5" height="14" rx="1.5" fill="#ff1100" opacity="0.9"/>
+      <rect x="12" y="57" width="5" height="3" fill="#ff6600" opacity="0.8"/>
+
+      <!-- FRONT HEADLIGHT -->
+      <ellipse cx="206" cy="55" rx="6" ry="3.5" fill="#ffffcc" opacity="0.9"/>
+      <ellipse cx="206" cy="55" rx="4" ry="2.2" fill="#fff"/>
+      <!-- DRL -->
+      <line x1="201" y1="50" x2="211" y2="50" stroke="#ffffaa" stroke-width="1.2" opacity="0.75"/>
+
+      <!-- FRONT GRILLE -->
+      <path d="M200 60 L212 60 L212 65 C208 66 202 66 200 65 Z" fill="#111"/>
+      <line x1="201" y1="61.5" x2="211" y2="61.5" stroke="#555" stroke-width="0.8"/>
+      <line x1="201" y1="63.5" x2="211" y2="63.5" stroke="#555" stroke-width="0.8"/>
+
+      <!-- FRONT BUMPER -->
+      <path d="M210 65 L216 65 L216 70 C214 72 210 72 210 70 Z" fill="#220000"/>
+
+      <!-- REAR BUMPER / EXHAUST -->
+      <ellipse cx="14" cy="65" rx="2.5" ry="1.8" fill="#222"/>
+      <ellipse cx="19" cy="67" rx="2.5" ry="1.8" fill="#222"/>
+
+      <!-- REAR WHEEL -->
+      <circle cx="54" cy="72" r="15" fill="#0d0d0d"/>
+      <circle cx="54" cy="72" r="15" fill="url(#wheelG)"/>
+      <circle cx="54" cy="72" r="10.5" fill="#1a1a1a"/>
+      <!-- Spokes -->
+      <line x1="54" y1="61.5" x2="54" y2="82.5" stroke="#666" stroke-width="1.8"/>
+      <line x1="43.5" y1="72" x2="64.5" y2="72" stroke="#666" stroke-width="1.8"/>
+      <line x1="46.6" y1="64.6" x2="61.4" y2="79.4" stroke="#666" stroke-width="1.4"/>
+      <line x1="61.4" y1="64.6" x2="46.6" y2="79.4" stroke="#666" stroke-width="1.4"/>
+      <!-- Hub cap -->
+      <circle cx="54" cy="72" r="4" fill="#cc0000"/>
+      <circle cx="54" cy="72" r="2" fill="#ff4444"/>
+      <!-- Rim ring -->
+      <circle cx="54" cy="72" r="10.5" fill="none" stroke="#444" stroke-width="0.7"/>
+
+      <!-- FRONT WHEEL -->
+      <circle cx="178" cy="72" r="15" fill="url(#wheelG)"/>
+      <circle cx="178" cy="72" r="10.5" fill="#1a1a1a"/>
+      <line x1="178" y1="61.5" x2="178" y2="82.5" stroke="#666" stroke-width="1.8"/>
+      <line x1="167.5" y1="72" x2="188.5" y2="72" stroke="#666" stroke-width="1.8"/>
+      <line x1="170.6" y1="64.6" x2="185.4" y2="79.4" stroke="#666" stroke-width="1.4"/>
+      <line x1="185.4" y1="64.6" x2="170.6" y2="79.4" stroke="#666" stroke-width="1.4"/>
+      <circle cx="178" cy="72" r="4" fill="#cc0000"/>
+      <circle cx="178" cy="72" r="2" fill="#ff4444"/>
+      <circle cx="178" cy="72" r="10.5" fill="none" stroke="#444" stroke-width="0.7"/>
+    </svg>
+    <span class="label">V1</span>
+  </a>
+
+  <!-- V2 -->
+  <a href="v2/v2.html" class="car-btn" aria-label="Version 2">
+    <svg width="240" height="90" viewBox="0 0 240 90" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bodyG2" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#1e0000"/>
+          <stop offset="20%"  stop-color="#aa0000"/>
+          <stop offset="50%"  stop-color="#770000"/>
+          <stop offset="100%" stop-color="#0d0000"/>
+        </linearGradient>
+        <linearGradient id="roofG2" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#280000"/>
+          <stop offset="100%" stop-color="#990000"/>
+        </linearGradient>
+        <linearGradient id="glassG2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#bbddff" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#112244" stop-opacity="0.4"/>
+        </linearGradient>
+        <radialGradient id="wheelG2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#2a2a2a"/>
+          <stop offset="100%" stop-color="#050505"/>
+        </radialGradient>
+        <linearGradient id="chromeG2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="transparent"/>
+          <stop offset="30%"  stop-color="#888"/>
+          <stop offset="50%"  stop-color="#ddd"/>
+          <stop offset="70%"  stop-color="#888"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Shadow -->
+      <ellipse cx="120" cy="83" rx="108" ry="5" fill="#000" opacity="0.55"/>
+
+      <!-- BODY — wider, lower, sportier -->
+      <path d="M10 60 C10 52 20 44 40 40 C56 36 72 34 92 31 C106 28 120 26 136 27 C151 28 164 32 176 37 C188 43 198 50 206 56 C210 59 213 63 213 67 L213 72 L10 72 Z" fill="url(#bodyG2)"/>
+
+      <!-- ROOF — more raked/aggressive -->
+      <path d="M80 40 C89 28 102 22 118 21 C134 20 148 25 157 34 C163 40 166 46 167 52 L80 52 Z" fill="url(#roofG2)"/>
+
+      <!-- WINDSHIELD (raked) -->
+      <path d="M86 51 C90 32 103 24 120 23 C135 22 147 30 155 43 L155 51 Z" fill="url(#glassG2)"/>
+
+      <!-- REAR WINDOW -->
+      <path d="M80 51 L81 40 C86 31 97 26 110 25 L84 51 Z" fill="url(#glassG2)" opacity="0.55"/>
+
+      <!-- SILL / GROUND EFFECT -->
+      <rect x="10" y="70" width="203" height="3" rx="0" fill="#1a0000"/>
+      <line x1="10" y1="71" x2="213" y2="71" stroke="#880000" stroke-width="0.8"/>
+
+      <!-- FRONT SPLITTER -->
+      <rect x="206" y="70" width="12" height="2" rx="0.5" fill="#cc0000"/>
+
+      <!-- REAR SPOILER BLADE -->
+      <rect x="7" y="44" width="8" height="2" rx="1" fill="#cc0000" opacity="0.85"/>
+      <rect x="7" y="46" width="2" height="6" rx="0.5" fill="#880000" opacity="0.7"/>
+
+      <!-- CHROME SILL -->
+      <line x1="10" y1="59" x2="210" y2="59" stroke="url(#chromeG2)" stroke-width="1.1"/>
+
+      <!-- REAR LIGHT BAR (full width) -->
+      <rect x="8" y="51" width="4" height="16" rx="1" fill="#dd1100" opacity="0.9"/>
+      <rect x="8" y="55" width="4" height="4" fill="#ff5500" opacity="0.8"/>
+
+      <!-- FRONT HEADLIGHTS (angular) -->
+      <polygon points="198,48 213,48 215,55 198,55" fill="#ffffcc" opacity="0.85"/>
+      <polygon points="200,49 212,49 213,54 200,54" fill="#fff" opacity="0.9"/>
+      <!-- DRL STRIP -->
+      <line x1="196" y1="51" x2="215" y2="51" stroke="#ffffaa" stroke-width="1.3" opacity="0.7"/>
+
+      <!-- FRONT GRILLE (wide, low) -->
+      <path d="M196 57 L215 57 L215 63 L196 63 Z" fill="#0d0000"/>
+      <line x1="197" y1="59" x2="214" y2="59" stroke="#440000" stroke-width="0.8"/>
+      <line x1="197" y1="61" x2="214" y2="61" stroke="#440000" stroke-width="0.8"/>
+      <!-- Badge hint -->
+      <rect x="203" y="58.5" width="5" height="4" rx="0.5" fill="#cc0000" opacity="0.6"/>
+
+      <!-- EXHAUSTS -->
+      <ellipse cx="12" cy="65" rx="2.8" ry="2" fill="#1c1c1c"/>
+      <ellipse cx="18" cy="67" rx="2.8" ry="2" fill="#1c1c1c"/>
+
+      <!-- REAR WHEEL -->
+      <circle cx="50" cy="72" r="15" fill="#0a0a0a"/>
+      <circle cx="50" cy="72" r="15" fill="url(#wheelG2)"/>
+      <circle cx="50" cy="72" r="10.5" fill="#141414"/>
+      <line x1="50" y1="61.5" x2="50" y2="82.5" stroke="#555" stroke-width="1.8"/>
+      <line x1="39.5" y1="72" x2="60.5" y2="72" stroke="#555" stroke-width="1.8"/>
+      <line x1="42.6" y1="64.6" x2="57.4" y2="79.4" stroke="#555" stroke-width="1.4"/>
+      <line x1="57.4" y1="64.6" x2="42.6" y2="79.4" stroke="#555" stroke-width="1.4"/>
+      <circle cx="50" cy="72" r="4" fill="#aa0000"/>
+      <circle cx="50" cy="72" r="2" fill="#dd3333"/>
+      <circle cx="50" cy="72" r="10.5" fill="none" stroke="#333" stroke-width="0.7"/>
+      <circle cx="50" cy="72" r="13.5" fill="none" stroke="#222" stroke-width="0.5"/>
+
+      <!-- FRONT WHEEL -->
+      <circle cx="178" cy="72" r="15" fill="url(#wheelG2)"/>
+      <circle cx="178" cy="72" r="10.5" fill="#141414"/>
+      <line x1="178" y1="61.5" x2="178" y2="82.5" stroke="#555" stroke-width="1.8"/>
+      <line x1="167.5" y1="72" x2="188.5" y2="72" stroke="#555" stroke-width="1.8"/>
+      <line x1="170.6" y1="64.6" x2="185.4" y2="79.4" stroke="#555" stroke-width="1.4"/>
+      <line x1="185.4" y1="64.6" x2="170.6" y2="79.4" stroke="#555" stroke-width="1.4"/>
+      <circle cx="178" cy="72" r="4" fill="#aa0000"/>
+      <circle cx="178" cy="72" r="2" fill="#dd3333"/>
+      <circle cx="178" cy="72" r="10.5" fill="none" stroke="#333" stroke-width="0.7"/>
+      <circle cx="178" cy="72" r="13.5" fill="none" stroke="#222" stroke-width="0.5"/>
+    </svg>
+    <span class="label">V2</span>
+  </a>
+
+</div>
+
+</body>
+</html>
